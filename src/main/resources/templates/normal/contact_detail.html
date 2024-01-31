@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="normal/base :: layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="card mr-3 ml-3" th:if="${contact}">
+            <div class="card-body">
+                <div class="container text-center">
+                    <img src="" class="my-profile-pic-logo" th:src="@{'/img/'+${contact.image}}" alt="image">
+                    <h3 class=""mt-3> 
+                        <span th:text="${contact.name}"></span>
+                        (<span th:text="${contact.secondName}"></span>)</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#Id</th>
+                                    <th scope="col">SCMUSER <span th:text="${contact.c_Id}"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Email</th>
+                                    <td th:text="${contact.email}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Phone</th>
+                                    <td th:text="${contact.phone}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Work</th>
+                                    <td th:text="${contact.work}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="description mt-3">
+                            <th:block th:utext="${contact.description}">kjhgf</th:block>
+                        </div>
+                        <td>
+                            <a href="#" th:onclick="|deleteContact('${contact.c_Id}')|"  class="btn btn-danger btn-sm">Delete</a>
+                            <form th:action="@{'/user/update-contact/'+${contact.c_Id}}" method="POST" class="mt-3" style = "display:inline">
+                                <button type="submit" class="btn btn-success btn-sm">Update</button>
+                            </form>
+                        </td>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h1 th:unless="${contact}">You dont have permission to see this contact....</h1>
+        </div>
+    </section>
+
+</body>
+</html>

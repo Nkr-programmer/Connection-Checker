@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="normal/base :: layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="card">
+                <div class="card-body my-5">
+                    <div class="container text-center">
+                        <h1 class="text-center mt-3 text-secondary font-italic font-weight-light">
+                            Start adding your contact on cloud...
+                        </h1>
+                        <a th:href="@{/user/add-contact}" class="btn btn-primary  text-uppercase mt-4">Add new contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="normal/base :: layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="col-md-10 offset-md-1">
+     <div class="card mr-3 ml-3">
+        <div class="card-body">
+            <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+                <p class="text-center" th:text="${session.message.content}"></p>
+                <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+            </div>
+            <h1 class="text-center">Add Contact</h1>
+            <div class="container fluid mt-1">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form action="#" th:object="${contact}" enctype="multipart/form-data" method="POST"
+                        th:action="@{/user/process-contact}" class="mt-2">
+                        
+<!-- first name -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                                    <input type="text" id="firstName" name="name" placeholder="Enter Name Here" class="form-control" required>    
+                        </div>
+<!-- Second Nmae -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-user-alt"></i>
+                                </div>
+                            </div>        
+                                    <input type="text" id="secondName" name="secondName" placeholder="Enter Nick Name Here" class="form-control" required>
+                        </div>
+<!-- phone number -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                            </div>
+                                    <input  min="10" type="number" id="phone" name="phone" placeholder="Enter Phone Number Here" class="form-control" required>
+                        </div>
+<!-- email -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    @
+                                </div>
+                            </div>
+                                    <input type="email" id="email" name="email" placeholder="Enter Email Id Here" class="form-control" required>
+                        </div>
+<!-- work -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+                            </div>
+                                    <input type="text" id="work" name="work" placeholder="Enter Profession Here" class="form-control" required>
+                        </div>
+<!--description  -->
+                        <div class="form-group mt-3">
+                            <textarea name="description" id="mytextArea" rows="10" class="form-control" placeholder="Enter Contact Description"></textarea>
+                        </div>
+<!-- image upload -->
+                        <div class="custom-file mt-3">
+                            <input type="file" name="image">
+                        </div>
+<!-- button -->
+                        <div class="container text-center mt-3">
+                            <button class="btn btn-outline-primary">Save Contact</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+     </div>
+    </div>
+</div>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'#mytextArea'});</script>
+    
+</section>
+
+</body>
+</html>
