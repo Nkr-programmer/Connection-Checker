@@ -43,27 +43,23 @@
                 link.classList.add("active");
                 link.setAttribute("aria-current", "page");
             }
-            // else if(link.href === "http://localhost:8080/do-register")
-            // {
-            //   console.log(link.href);
-            //     link.classList.add("active");
-            //     link.setAttribute("aria-current", "page");
-            // }
              });
-            if(window.location.href === "http://localhost:8080/signin?logout") 
+             let islocal=window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1');
+             let url= islocal?`http://localhost:8080/`:`https://connection-checker-production.up.railway.app/`;
+            if(window.location.href === url+"signin?logout") 
             {
               document.querySelectorAll(".nav-link").forEach((link) => {
-                if (link.href === "http://localhost:8080/signin") {
+                if (link.href === url+"signin") {
                   console.log(link.href);
                     link.classList.add("active");
                     link.setAttribute("aria-current", "page");
                 }
               });
             }
-            if(window.location.href === "http://localhost:8080/do-register") 
+            if(window.location.href === url+"do-register") 
             {
               document.querySelectorAll(".nav-link").forEach((link) => {
-                if (link.href === "http://localhost:8080/signup") {
+                if (link.href === url+"signup") {
                   console.log(link.href);
                     link.classList.add("active");
                     link.setAttribute("aria-current", "page");

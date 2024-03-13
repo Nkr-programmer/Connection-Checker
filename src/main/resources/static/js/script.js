@@ -19,7 +19,8 @@ const search =(imagePrefix)=>{
     if(query == ''){$(".search-result").hide();}
     else{
         console.log(query);
-        let url=`http://localhost:8080/search/${query}/${filter}`;
+        let islocal=window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1');
+        let url= islocal?`http://localhost:8080/search/${query}/${filter}`:`https://connection-checker-production.up.railway.app/search/${query}/${filter}`;
         fetch(url).then(
             (response)=>{return response.json();}
         ).then(
