@@ -9,13 +9,56 @@
     <section>
         <div class="container">
             <div class="card">
-                <div class="card-body my-5">
-                    <div class="container text-center">
-                        <h1 class="text-center mt-3 text-secondary font-italic font-weight-light">
-                            Start adding your contact on cloud...
-                        </h1>
-                        <a th:href="@{/user/add-contact}" class="btn btn-primary  text-uppercase mt-4">Add new contact</a>
+                <div class="card-body">
+                    <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+                      <p class="text-center" th:text="${session.message.content}"></p>
+                      <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
                     </div>
+                    <h1 class="text-center">Your DashBoard</h1>
+                    <div class="container text-center">
+                        <a href="#" th:href="@{/user/show-contact/0}" class="btn bg-primary text-white mt-3 mb-3" style="float: left;"><i class="fa-solid fa-filter mr-2"></i>Filter</a>
+                        <a href="#" th:href="@{/user/add-contact}" class="btn btn-primary text-white mt-3 mb-3" style="float: right;"><i class="fa-solid fa-circle-plus mr-2"></i>Add</a>
+                    </div>
+    <!-- <div role="separator" class="dropdown-divider"></div> -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"><i class="fa-brands fa-linkedin ml-2 mt-1" style="color: #2f68ca; font-size:20px;"></i></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Experience</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <div class="container" th:if="${contact}"> 
+                                <tr th:each="c: ${contact}" >
+                                    <th scope="row"><a href="" target="_blank" th:href="${c.linkedin}"><span th:text="${'SCM2024'+c.c_Id}"></span></a></th>
+                                    <td><img src="" th:if="${c.image}" class="my-profile-pic mr-2" th:src="${(c.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+c.c_Id+c.image }" alt="image"><span th:text="${c.name+' ('+c.secondName+')'}"></span></td>
+                                    <td>
+                                        <span th:text="${c.email}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${c.work}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${c.phone}"></span>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                        <li th:each="item, companiesStat : ${c.companies}">
+                                            <span th:if="${companiesStat.current!=''}" th:text="${companiesStat.current}"></span>
+                                        </li>
+                                    </ul>
+                                    </td>
+                                </tr>
+                            </div>
+                            <div >
+                                <h1 th:unless="${contact}"></h1>
+                            </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

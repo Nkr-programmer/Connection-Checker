@@ -10,8 +10,8 @@
         <div class="card mr-3 ml-3" th:if="${contact}">
             <div class="card-body">
                 <div class="container text-center">
-                    <img src="" class="my-profile-pic-logo" th:src="@{'/img/'+${contact.image}}" alt="image">
-                    <h3 class=""mt-3> 
+                    <img src="" class="my-profile-pic-logo" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.image }" alt="image">
+                    <h3 class="mt-3"> 
                         <span th:text="${contact.name}"></span>
                         (<span th:text="${contact.secondName}"></span>)</h3>
                         <table class="table">
@@ -31,8 +31,46 @@
                                     <td th:text="${contact.phone}"></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Work</th>
+                                    <th scope="row">Role</th>
                                     <td th:text="${contact.work}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">LinkedIn</th>
+                                    <td><a href="" target="_blank" th:href="${contact.linkedin}"><span th:text="${contact.linkedin}"></span></a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">SubCompany</th>
+                                    <td th:text="${contact.subcompany}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Companies</th>
+                                    <td>
+                                        <ul>
+                                          <li th:each="item, companiesStat : ${contact.companies}">
+                                              <span th:if="${companiesStat.current!=''}" th:text="${companiesStat.current}"></span>
+                                          </li>
+                                       </ul>
+                                      </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Projects</th>
+                                    <td>
+                                        <ul>
+                                          <li th:each="item, projectsStat : ${contact.projects}">
+                                              <span th:if="${projectsStat.current!=''}" th:text="${projectsStat.current}"></span>
+                                          </li>
+                                       </ul>
+                                      </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Tech Stack</th>
+                                    <td>
+                                        <ul>
+                                          <li th:each="item, techstackStat : ${contact.techstack}">
+                                              <span th:if="${techstackStat.current!=''}" th:text="${techstackStat.current}"></span>
+                                          </li>
+                                       </ul>
+                                      </td>
                                 </tr>
                             </tbody>
                         </table>

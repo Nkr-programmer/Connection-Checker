@@ -15,7 +15,7 @@
                 <p class="text-center" th:text="${session.message.content}"></p>
                 <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
             </div>
-            <h1 class="text-center">Update Contact</h1>
+            <h1 class="text-center">Update Connections</h1>
             <div class="container fluid mt-1">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
@@ -68,18 +68,101 @@
                             </div>
                                     <input th:value="${contact.work}" type="text" id="work" name="work" placeholder="Enter Profession Here" class="form-control" required>
                         </div>
+<!-- linkedin -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </div>
+                            </div>
+                                    <input th:value="${contact.linkedin}" type="text" id="linkedin" name="linkedin" placeholder="Enter LinkedIn Url" class="form-control" required>
+                        </div>
+<!-- SubCompany -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-brands fa-flipboard"></i>
+                                </div>
+                            </div>
+                                    <input th:value="${contact.subcompany}" type="text" id="subcompany" name="subcompany" placeholder="Enter SubCompany Here" class="form-control" required>
+                        </div>
+<!-- Companies -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-solid fa-building"></i>
+                                </div>
+                            </div>
+                                <input th:value="${contact.companies}" type="text" th:field="*{companies[0]}" id="companies" name="companies" placeholder="Company 1" class="form-control" >   
+                                <input th:value="${contact.companies}" type="text" th:field="*{companies[1]}" id="companies" name="companies" placeholder="Company 2" class="form-control" >   
+                                <input th:value="${contact.companies}" type="text" th:field="*{companies[2]}" id="companies" name="companies" placeholder="Company 3" class="form-control" >
+                                <button input="submit"  onclick="displaycompanies()" class="companies-button btn btn-outline-primary ml-2">Add</button>
+                                
+                        </div>
+                        <div class="companies-result mt-3"></div>
+                            <!-- <ul> -->
+                                <!-- <input type="text" th:field="*{companies[0]}"  id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"/>  -->
+                                <!-- <li th:each="item, companiesStat : ${contact.companies}">
+                                    <input type="text" th:field="*{companies[__${companiesStat.index}__]}"  id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"/>
+                                    <input type="text" th:field="*{companies[__${companiesStat.index}__]}"  id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"/>
+
+                                </li> -->
+                            <!-- </ul> -->
+                            <!-- <input type="text" th:field="*{companies[0]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control" />
+                            <input type="text" th:field="*{companies[1]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control" />
+                            <input type="text" th:field="*{companies[2]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control" /> -->
+                            
+                            <!-- <input type="text" th:if="${contact.companies!=null}" th:field="*{companies[1]}" id="companies" name="companies" placeholder="Companies Here" class="form-control"  required>   
+                            <input type="text" th:unless="${contact.companies!=null}" th:field="*{companies[0]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"  required>   
+                                     -->
+
+<!-- Projects -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-solid fa-diagram-project"></i>
+                                </div>
+                            </div>
+                                <input th:value="${contact.projects}" type="text" th:field="*{projects[0]}" id="projects" name="projects" placeholder="Project 1" class="form-control" >   
+                                <input th:value="${contact.projects}" type="text" th:field="*{projects[1]}" id="projects" name="projects" placeholder="Project 2" class="form-control" >   
+                                <input th:value="${contact.projects}" type="text" th:field="*{projects[2]}" id="projects" name="projects" placeholder="Project 3" class="form-control" >
+                                <button input="submit"  onclick="displaycompanies()" class="projects-button btn btn-outline-primary ml-2">Add</button>
+                                
+                        </div>
+                        <div class="projects-result mt-3"></div>
+<!-- TechStack -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-brands fa-uncharted"></i>
+                                </div>
+                            </div>
+                                <input th:value="${contact.techstack}" type="text" th:field="*{techstack[0]}" id="techstack" name="techstack" placeholder="TechStack 1" class="form-control" >   
+                                <input th:value="${contact.techstack}" type="text" th:field="*{techstack[1]}" id="techstack" name="techstack" placeholder="TechStack 2" class="form-control" >   
+                                <input th:value="${contact.techstack}" type="text" th:field="*{techstack[2]}" id="techstack" name="techstack" placeholder="TechStack 3" class="form-control" >
+                                <button input="submit"  onclick="displaycompanies()" class="techstack-button btn btn-outline-primary ml-2">Add</button>
+                                
+                        </div>
+                        <div class="techstack-result mt-3"></div>
 <!--description  -->
                         <div class="form-group mt-3">
-                            <textarea th:text="${contact.description}" name="description" id="mytextArea" rows="10" class="form-control" placeholder="Enter Contact Description"></textarea>
+                            <textarea th:text="${contact.description}" name="description" id="description" rows="10" class="form-control" placeholder="Enter Contact Description"></textarea>
                         </div>
 <!-- image upload -->
                         <div class="container text-center" >
-                            <img src="" th:src="@{'/img/'+${contact.image}}" alt="" class="my-profile-pic" style="width:250px; height:250px;">
+                            <img src="" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.image }" alt=""  id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;">
                         </div>
-                        <p class="text-secondary">Choose new profile pic</p>
+                        <p class="text-secondary">Choose new profile pic </p>
                         <div class="custom-file mt-3">
-                            <input type="file" name="image">
+                            <input type="file" name="image" accept="image/jpg, image/png, image/jpeg" id="input-file">
                         </div>
+                        <script>
+                            let profilePic = document.getElementById("profile-pic");
+                            let inputFile = document.getElementById("input-file");
+                            inputFile.onchange = function(){
+                                profilePic.src = URL.createObjectURL(inputFile.files[0]);
+                            }
+                        </script>
 <!-- button -->
                         <div class="container text-center mt-3">
                             <button class="btn btn-outline-primary">Save Contact</button>

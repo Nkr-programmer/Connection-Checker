@@ -46,14 +46,17 @@ public class MyConfig{
 
         @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-        .formLogin(form -> form.loginPage("/signin").loginProcessingUrl("/dologin").defaultSuccessUrl("/user/index"))
-        .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/admin/**").hasRole("ADMIN")
-        .requestMatchers("/user/**").hasRole("USER")
-        .requestMatchers("/**").permitAll()
-        .anyRequest()
-        .authenticated());
+            http.csrf(csrf -> csrf.disable())
+                    .formLogin(form -> form.loginPage("/signin").loginProcessingUrl("/dologin").defaultSuccessUrl("/user/index"))
+                    .authorizeHttpRequests(auth -> auth
+                            .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .requestMatchers("/user/**").hasRole("USER")
+                            .requestMatchers("/**").permitAll()
+                            .anyRequest()
+                            .authenticated())
+                    .rememberMe(me -> me
+                            .key("uniqueAndSecret")
+                            .rememberMeParameter("remember-me"));
         return http.build();
     }
 
