@@ -50,7 +50,7 @@ public class UserControllers {
 
     @Autowired
     private ContactRepository contactRepository;
-    final String saveFile="C:\\spring connection_checker\\connection_checker\\src\\main\\resources\\static\\img";
+    // final String saveFile="C:\\spring connection_checker\\connection_checker\\src\\main\\resources\\static\\img";
     
     static List<String> contactFilter= null;
     static{
@@ -95,15 +95,15 @@ public class UserControllers {
     public String  processContact(@Valid @ModelAttribute Contact contact,BindingResult bindingResult,@RequestParam("image") MultipartFile file,Principal principal,HttpSession httpSession) {
         try{
                         //if(3>2){throw new Exception();}
+                System.out.println("noooooooooooo");
+                ClassPathResource saveFiles= new ClassPathResource("src/main/resources/static/img");
                 if(file.isEmpty()){
                     System.out.println("File is Empty");
                     contact.setImage("contacts.png");
                 }
                 else{
                     contact.setImage(file.getOriginalFilename());
-                // File saveFiles= new ClassPathResource("src/main/resources/static/img").getFile();
-                // Path path=Paths.get(saveFiles.getAbsolutePath()+File.separator+file.getOriginalFilename());
-                    Path path=Paths.get(saveFile+File.separator+file.getOriginalFilename());
+                    Path path=Paths.get(saveFiles.getPath()+File.separator+file.getOriginalFilename());
                     Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
                     System.out.println("image is uploaded "+path);
                 }
@@ -118,9 +118,9 @@ public class UserControllers {
                 user.getContact().add(contact);
                 this.userRepository.save(user);
                 if(!file.isEmpty()){
-                    Path path=Paths.get(saveFile+File.separator+user.getId()+"_"+contact.getC_Id()+file.getOriginalFilename());
+                    Path path=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+contact.getC_Id()+file.getOriginalFilename());
                     Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
-                    path=Paths.get(saveFile+File.separator+file.getOriginalFilename());
+                    path=Paths.get(saveFiles.getPath()+File.separator+file.getOriginalFilename());
                     Files.delete(path);
                 }
                 System.out.println("Data"+contact);
@@ -182,8 +182,11 @@ public class UserControllers {
         String image=contact.getImage();
         boolean defImg=false;
         if(image.equals("contacts.png")){defImg=true;}
-        Path oldpath=Paths.get(saveFile+File.separator+user.getId()+"_"+contact.getC_Id()+image);
-        try{if(!defImg)Files.delete(oldpath);}
+        try{
+            ClassPathResource saveFiles= new ClassPathResource("src/main/resources/static/img");
+            Path oldpath=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+contact.getC_Id()+image);
+            if(!defImg)Files.delete(oldpath);
+        }
         catch(Exception e){
             System.out.println("Error"+e.getMessage());
             e.printStackTrace();
@@ -213,11 +216,11 @@ public class UserControllers {
                 contact.setImage(oldContact.getImage());
             }
             else{
-                
+                ClassPathResource saveFiles= new ClassPathResource("src/main/resources/static/img");
                 String image=oldContact.getImage();
                 boolean defImg=false;
                 if(image.equals("contacts.png")){defImg=true;}
-                Path oldpath=Paths.get(saveFile+File.separator+user.getId()+"_"+contact.getC_Id()+image);
+                Path oldpath=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+contact.getC_Id()+image);
                 try{if(!defImg)Files.delete(oldpath);}
                 catch(Exception e){
                     System.out.println("Error"+e.getMessage());
@@ -225,9 +228,8 @@ public class UserControllers {
                     System.out.println("NOOOOO Image");
     
                 }
-                // File saveFiles= new ClassPathResource("src/main/resources/static/img").getFile();
-                // Path path=Paths.get(saveFiles.getAbsolutePath()+File.separator+file.getOriginalFilename());
-                 Path path=Paths.get(saveFile+File.separator+user.getId()+"_"+contact.getC_Id()+file.getOriginalFilename());
+                System.out.println(saveFiles.getPath().toString());
+                 Path path=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+contact.getC_Id()+file.getOriginalFilename());
                  Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
                  System.out.println("image is uploaded "+path);
                  contact.setImage(file.getOriginalFilename());

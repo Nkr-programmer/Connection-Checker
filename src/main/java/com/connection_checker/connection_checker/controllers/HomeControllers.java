@@ -9,6 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,7 @@ public class HomeControllers {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    final String saveFile="C:\\spring connection_checker\\connection_checker\\src\\main\\resources\\static\\img";
+    // final String saveFile="C:\\spring connection_checker\\connection_checker\\src\\main\\resources\\static\\img";
 
     @ModelAttribute
     public void addCommonData(Model model,Principal principal){
@@ -135,16 +136,15 @@ public class HomeControllers {
                 String image=oldUser.getImageUrl();
                 boolean defImg=false;
                 if(image.equals("default.png")){defImg=true;}
-                Path oldpath=Paths.get(saveFile+File.separator+user.getId()+"_"+image);
+                ClassPathResource saveFiles= new ClassPathResource("src/main/resources/static/img");
+                Path oldpath=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+image);
                 try{if(!defImg)Files.delete(oldpath);}
                 catch(Exception e){
                     System.out.println("Error"+e.getMessage());
                     e.printStackTrace();
                     System.out.println("NOOOOO Image");
                 }
-                // File saveFiles= new ClassPathResource("src/main/resources/static/img").getFile();
-                // Path path=Paths.get(saveFiles.getAbsolutePath()+File.separator+file.getOriginalFilename());
-                 Path path=Paths.get(saveFile+File.separator+user.getId()+"_"+file.getOriginalFilename());
+                 Path path=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+file.getOriginalFilename());
                  Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
                  System.out.println("image is uploaded "+path);
                  user.setImageUrl(file.getOriginalFilename());
