@@ -35,7 +35,10 @@
                            <div class="container" th:if="${contact}"> 
                                 <tr th:each="c: ${contact}" >
                                     <th scope="row"><a href="" target="_blank" th:href="${c.linkedin}"><span th:text="${'SCM2024'+c.c_Id}"></span></a></th>
-                                    <td><img src="" th:if="${c.image}" class="my-profile-pic mr-2" th:src="${(c.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+c.c_Id+c.image }" alt="image"><span th:text="${c.name+' ('+c.secondName+')'}"></span></td>
+                                    <!-- IMAGE FROM LOCAL -->
+                                    <!-- <td><img src="" th:if="${c.image}" class="my-profile-pic mr-2" th:src="${(c.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+c.c_Id+c.image }" alt="image"><span th:text="${c.name+' ('+c.secondName+')'}"></span></td> -->
+                                    <!-- IMAGE FROM CLOUDINARY -->
+                                    <td><img src="" th:if="${c.image}" class="my-profile-pic mr-2" th:src="${(c.image =='contacts.png') ? '/img/contacts.png' : c.image }" alt="image"><span th:text="${c.name+' ('+c.secondName+')'}"></span></td>
                                     <td>
                                         <span th:text="${c.email}"></span>
                                     </td>

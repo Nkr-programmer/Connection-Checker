@@ -150,7 +150,10 @@
                         </div>
 <!-- image upload -->
                         <div class="container text-center" >
-                            <img src="" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.image }" alt=""  id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;">
+                            <!-- IMAGE FROM LOCAL -->
+                            <!-- <img src="" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.image }" alt=""  id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;"> -->
+                            <!-- IMAGE FROM CLODINARY -->
+                            <img src="" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : contact.image }" alt=""  id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;">
                         </div>
                         <p class="text-secondary">Choose new profile pic </p>
                         <div class="custom-file mt-3">

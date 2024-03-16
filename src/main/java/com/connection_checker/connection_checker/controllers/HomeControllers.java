@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -22,6 +23,7 @@ import com.connection_checker.connection_checker.dao.UserRepository;
 import com.connection_checker.connection_checker.entities.Contact;
 import com.connection_checker.connection_checker.entities.User;
 import com.connection_checker.connection_checker.helper.Message;
+import com.connection_checker.connection_checker.services.CloudinaryImageService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -41,6 +43,9 @@ public class HomeControllers {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CloudinaryImageService cloudinaryImageService;
     // final String saveFile="C:\\spring connection_checker\\connection_checker\\src\\main\\resources\\static\\img";
 
     @ModelAttribute
@@ -119,7 +124,66 @@ public class HomeControllers {
         return "normal/user_update";
     }
 
-        @PostMapping("/user/process-user-update")
+    //to store image locally way and logics
+    //     @PostMapping("/user/process-user-update")
+    // public String updateHandler(@Valid @ModelAttribute User user,BindingResult bindingResult,@RequestParam("imageUrl") MultipartFile file,Principal principal,HttpSession httpSession,Model m) {
+        
+    //     try{
+    //         User oldUser= this.userRepository.findById(user.getId()).get();
+    //         user.setContact(oldUser.getContact());
+    //         System.out.println("inputtttttttttt user "+user+" "+user.getContact()+user.getRole());
+    //         System.out.println("olllllllld user"+oldUser+" "+oldUser.getContact());
+    //         if(file.isEmpty()){
+    //             System.out.println("File is Empty");
+    //             user.setImageUrl(oldUser.getImageUrl());
+    //         }
+    //         else{
+                
+    //             String image=oldUser.getImageUrl();
+    //             boolean defImg=false;
+    //             if(image.equals("default.png")){defImg=true;}
+    //             ClassPathResource saveFiles= new ClassPathResource("src/main/resources/static/img");
+    //             Path oldpath=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+image);
+    //             try{if(!defImg)Files.delete(oldpath);}
+    //             catch(Exception e){
+    //                 System.out.println("Error"+e.getMessage());
+    //                 e.printStackTrace();
+    //                 System.out.println("NOOOOO Image");
+    //             }
+    //              Path path=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+file.getOriginalFilename());
+    //              Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+    //              user.setImageUrl(file.getOriginalFilename());
+    //         }
+    //         List<Contact> contact=user.getContact();
+    //         System.out.println(user);
+    //         System.out.println(contact);
+    //         for(Contact c:contact)
+    //         {
+    //             c.setUser(user);
+    //         }
+    //         // user.getContact().add(contact);
+    //         // this.userRepository.save(user);
+    //         this.userRepository.save(user);
+    //         System.out.println(user);
+    //         System.out.println(user.getContact().toString());
+    //         System.out.println(" user NAME"+user.getName()+user.getContact().toString());
+    //         System.out.println("id"+user.getId());
+    //         httpSession.setAttribute("message", new Message("Successfully User Updated!!Add More...","alert-success"));
+    
+        
+    //     }
+    //     catch(Exception e)
+    //     {
+    //         System.out.println("Error"+e.getMessage());
+    //         e.printStackTrace();
+    //         httpSession.setAttribute("message", new Message("Something went wrong!!"+e.getMessage()+"","alert-danger")); 
+    //     }
+
+    //     return "about";
+    // }
+
+    //to store image on cloud
+    @PostMapping("/user/process-user-update")
     public String updateHandler(@Valid @ModelAttribute User user,BindingResult bindingResult,@RequestParam("imageUrl") MultipartFile file,Principal principal,HttpSession httpSession,Model m) {
         
         try{
@@ -136,18 +200,10 @@ public class HomeControllers {
                 String image=oldUser.getImageUrl();
                 boolean defImg=false;
                 if(image.equals("default.png")){defImg=true;}
-                ClassPathResource saveFiles= new ClassPathResource("src/main/resources/static/img");
-                Path oldpath=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+image);
-                try{if(!defImg)Files.delete(oldpath);}
-                catch(Exception e){
-                    System.out.println("Error"+e.getMessage());
-                    e.printStackTrace();
-                    System.out.println("NOOOOO Image");
-                }
-                 Path path=Paths.get(saveFiles.getPath()+File.separator+user.getId()+"_"+file.getOriginalFilename());
-                 Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
-                 System.out.println("image is uploaded "+path);
-                 user.setImageUrl(file.getOriginalFilename());
+                if(!defImg){this.cloudinaryImageService.delete(image);}
+                 Map map=this.cloudinaryImageService.upload(file);
+                 System.out.println("image is uploaded cloud data"+map);
+                 user.setImageUrl((String) map.get("url"));
             }
             List<Contact> contact=user.getContact();
             System.out.println(user);

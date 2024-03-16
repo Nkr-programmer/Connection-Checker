@@ -36,7 +36,10 @@ const search =(imagePrefix)=>{
 
             let text=`<div class='list-group'>`;
             data.forEach((contact) => {
-                text +=`<a href='/user/${contact.c_Id}/contact' class='list-group-item list-group-item-action'><img class="my-profile-pic" src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.c_Id+contact.image }">  ${contact.name} , <b>${filter}</b> ${contact[filtertype]}</a>`
+                // IMAGE FROM LOCAL
+                // text +=`<a href='/user/${contact.c_Id}/contact' class='list-group-item list-group-item-action'><img class="my-profile-pic" src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.c_Id+contact.image }">  ${contact.name} , <b>${filter}</b> ${contact[filtertype]}</a>`
+                // IMAGE FROM CLOUDINARY
+                text +=`<a href='/user/${contact.c_Id}/contact' class='list-group-item list-group-item-action'><img class="my-profile-pic" src="${(contact.image =='contacts.png') ? '/img/contacts.png' : contact.image }">  ${contact.name} , <b>${filter}</b> ${contact[filtertype]}</a>`
             });
             text +=`</div>`;
             $(".search-result").html(text);  

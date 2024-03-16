@@ -10,7 +10,10 @@
         <div class="card mr-3 ml-3" th:if="${contact}">
             <div class="card-body">
                 <div class="container text-center">
-                    <img src="" class="my-profile-pic-logo" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.image }" alt="image">
+                    <!-- IMAGE FROM LOCAL -->
+                    <!-- <img src="" class="my-profile-pic-logo" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+contact.image }" alt="image"> -->
+                    <!-- IMAGE FROM CLOUDINARY -->
+                    <img src="" class="my-profile-pic-logo" th:src="${(contact.image =='contacts.png') ? '/img/contacts.png' : contact.image }" alt="image">
                     <h3 class="mt-3"> 
                         <span th:text="${contact.name}"></span>
                         (<span th:text="${contact.secondName}"></span>)</h3>

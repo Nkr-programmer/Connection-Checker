@@ -1,5 +1,8 @@
 package com.connection_checker.connection_checker.smart.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.cloudinary.Cloudinary;
 
 @Configuration
 @EnableWebSecurity
@@ -60,6 +65,16 @@ public class MyConfig{
         return http.build();
     }
 
+    @Bean
+    public Cloudinary getCloudinary(){
+
+        Map config= new HashMap();
+        config.put("cloud_name","dszdq2wzx");
+        config.put("api_key","347242293619716");
+        config.put("api_secret","OQegNASDnS2BotPCNxbdsirVJIo");
+        config.put("secure",true);
+        return new Cloudinary(config);
+    }
 
     
 }

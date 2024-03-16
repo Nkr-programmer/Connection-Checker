@@ -42,7 +42,10 @@
                       <div class="container" th:if="${contact}"> 
                         <tr th:each="c: ${contact}">
                             <th scope="row" th:text="${'SCM2024'+c.c_Id}"></th>
-                            <td><a href="" th:href="@{'/user/'+${c.c_Id}+'/contact'}"><img src="" th:if="${c.image}" class="my-profile-pic mr-2" th:src="${(c.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+c.c_Id+c.image }" alt="image"><span th:text="${c.name}"></span></a></td>
+                            <!-- IMAGE FROM LOCAL -->
+                            <!-- <td><a href="" th:href="@{'/user/'+${c.c_Id}+'/contact'}"><img src="" th:if="${c.image}" class="my-profile-pic mr-2" th:src="${(c.image =='contacts.png') ? '/img/contacts.png' : '/img/'+imagePrefix+c.c_Id+c.image }" alt="image"><span th:text="${c.name}"></span></a></td> -->
+                            <!-- IMAGE FROM CLOUDINARY -->
+                            <td><a href="" th:href="@{'/user/'+${c.c_Id}+'/contact'}"><img src="" th:if="${c.image}" class="my-profile-pic mr-2" th:src="${(c.image =='contacts.png') ? '/img/contacts.png' : c.image }" alt="image"><span th:text="${c.name}"></span></a></td>
                             <td><span th:text="${c.subcompany}"></span></td>
                             <td>
                               <ul>

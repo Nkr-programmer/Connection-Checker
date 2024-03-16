@@ -145,7 +145,10 @@
                         </div>
 <!-- image upload -->
                         <div class="container text-center" >
-                            <img src="" th:src="${(user.imageUrl =='default.png') ? '/img/default.png' : '/img/'+user.id+'_'+user.imageUrl }" alt="" id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;">
+                           <!-- IMAGE FOR LOCAL -->
+                            <!-- <img src="" th:src="${(user.imageUrl =='default.png') ? '/img/default.png' : '/img/'+user.id+'_'+user.imageUrl }" alt="" id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;"> -->
+                            <!-- Image for Cloudinary -->
+                            <img src="" th:src="${(user.imageUrl =='default.png') ? '/img/default.png' : user.imageUrl }" alt="" id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;">
                         </div>
                         <p class="text-secondary">Choose new Image</p>
                         <div class="custom-file mt-3">
