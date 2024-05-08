@@ -60,6 +60,31 @@ So it will open it our Dashboard page. Here it shows our all connections in one 
 <img src="https://github.com/Nkr-programmer/Connection-Checker/assets/55958579/22439640-b9d9-4dd1-8962-9f9e0ff4af20" width="600px" height="400px" >
 </p>
 
+So lets see how can we filter out connections and hows it looks, For that either click on filter from Dashboard or View Connections.
+
+There multiple feature is added.eg
+
+(i) This View Connection Screen have Paging where it will fetch only first 5 connection at a time and show. 
+
+(ii)To change it need to click on next number when there is more connections.
+
+(iii) We have search here to filter out your connections based on option(Name, Email, Company, SubCompany, TechStacks, Projects) from combobox,
+
+(iv)Below the search bar it will show the resulted connection.
+
+(v)By clicking on connection from results will fetch and show details of Connection.Same thing could be obtained by clicking on name of Connection
+
+And We can Update and Delete any of connection from Connection_Details Screen and from View Connection Screen. 
+
+<p float="left">
+<img src="https://github.com/Nkr-programmer/Connection-Checker/assets/55958579/fd361a08-d05e-400b-9cce-9172e7fbce0e" width="600px" height="400px" >
+<img src="https://github.com/Nkr-programmer/Connection-Checker/assets/55958579/e7aa3633-1819-46c0-b011-71a96429439e" width="600px" height="400px" >
+<img src="https://github.com/Nkr-programmer/Connection-Checker/assets/55958579/d08a10b3-bb57-42dd-92c8-14dac0a03f3f" width="600px" height="400px" >
+<img src="https://github.com/Nkr-programmer/Connection-Checker/assets/55958579/5d6d738c-b55b-42ab-aee4-397da995de06" width="600px" height="400px" >
+<img src="https://github.com/Nkr-programmer/Connection-Checker/assets/55958579/131f2442-f6f7-448e-84d7-a6ee3b2433ea" width="600px" height="400px" >
+<img src="https://github.com/Nkr-programmer/Connection-Checker/assets/55958579/be7ea5d1-4121-4ab8-9099-451e47adfcf3" width="600px" height="400px" >
+</p>
+
 
 After signin it open home page. It will be like this
 
