@@ -3,10 +3,12 @@ WORKDIR /app
 COPY . .
 # Ensure the Maven wrapper script is executable
 RUN chmod +x ./mvnw
-# Print the current directory and list files for debugging
-RUN pwd && ls -al
-# Run Maven build
-RUN ./mvnw clean package -DskipTests || cat /app/target/surefire-reports/*.txt
+
+# Print the current directory, list files, and environment variables for debugging
+RUN pwd && ls -al && env
+
+# Use an absolute path for the Maven command to avoid any issues with relative paths
+# RUN /app/mvnw -X clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
 WORKDIR /app
