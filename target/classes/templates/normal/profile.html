@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="normal/base :: layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="card mr-3 ml-3" th:if="${user}">
+            <div class="card-body">
+                <div class="container text-center">
+                    <!-- IMAGE FROM LOCAL -->
+                    <!-- <img src="" class="my-profile-pic-logo" th:src="${(user.imageUrl =='default.png') ? '/img/default.png' : '/img/'+user.id+'_'+user.imageUrl }" alt="image"> -->
+                    <!-- IMAGE FROM CLOUDINARY -->
+                    <img src="" class="my-profile-pic-logo" th:src="${(user.imageUrl =='default.png') ? '/img/default.png' : user.imageUrl }" alt="image">
+                    <h3 class="mt-3"> 
+                        <span th:text="${user.name}"></span>
+                    </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#Id</th>
+                                <th scope="col">USER <span th:text="${user.id}"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td th:text="${user.email}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Phone</th>
+                                <td th:text="${user.phone}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Status</th>
+                                <td th:text="${user.enabled}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Role</th>
+                                <td th:text="${user.work}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">SubComany</th>
+                                <td th:text="${user.subcompany}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">LinkedIn</th>
+                                <td><a href="" target="_blank" th:href="${user.linkedin}"><span th:text="${user.linkedin}"></span></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Companies</th>
+                                <td>
+                                    <ul>
+                                      <li th:each="item, companiesStat : ${user.companies}">
+                                          <span th:if="${companiesStat.current!=''}" th:text="${companiesStat.current}"></span>
+                                      </li>
+                                   </ul>
+                                  </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Projects</th>
+                                <td>
+                                    <ul>
+                                      <li th:each="item, projectsStat : ${user.projects}">
+                                          <span th:if="${projectsStat.current!=''}" th:text="${projectsStat.current}"></span>
+                                      </li>
+                                   </ul>
+                                  </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tech Stack</th>
+                                <td>
+                                    <ul>
+                                      <li th:each="item, techstackStat : ${user.techstack}">
+                                          <span th:if="${techstackStat.current!=''}" th:text="${techstackStat.current}"></span>
+                                      </li>
+                                   </ul>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="description mt-3">
+                        <th:block th:utext="${user.about}">kjhgf</th:block>
+                    </div>
+                    <td>
+                        <form th:action="@{'/user/update-user/'+${user.id}}" method="POST" class="mt-3" style = "display:inline">
+                            <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        </form>
+                    </td>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

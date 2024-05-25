@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="normal/base :: layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="col-md-10 offset-md-1">
+     <div class="card mr-3 ml-3">
+        <div class="card-body">
+            <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+                <p class="text-center" th:text="${session.message.content}"></p>
+                <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+            </div>
+            <h1 class="text-center">Update User</h1>
+            <div class="container fluid mt-1">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form action="#" th:object="${user}" enctype="multipart/form-data" method="POST"
+                        th:action="@{/user/process-user-update}" class="mt-2">
+                        
+                        <input type="hidden" th:value="${user.id}" name="id">
+                        <input type="hidden" th:value="${user.password}" name="password">
+                        <input type="hidden" th:value="${user.enabled}" name="enabled">
+                        <input type="hidden" th:value="${user.role}" name="role">
+                        <input type="hidden" th:value="${user.contact}" name="contact">
+<!-- first name -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                                    <input th:value="${user.name}" type="text" id="firstName" name="name" placeholder="Enter Name Here" class="form-control" required>    
+                        </div>
+<!-- phone number -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                            </div>
+                                    <input th:value="${user.phone}"  min="10" type="number" id="phone" name="phone" placeholder="Enter Phone Number Here" class="form-control" required>
+                        </div>
+<!-- email -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    @
+                                </div>
+                            </div>
+                                    <input th:value="${user.email}" type="email" id="email" name="email" placeholder="Enter Email Id Here" class="form-control" required>
+                        </div>
+<!-- work -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+                            </div>
+                                    <input th:value="${user.work}" type="text" id="work" name="work" placeholder="Enter Profession Here" class="form-control" required>
+                        </div>
+<!-- linkedin -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </div>
+                            </div>
+                                    <input th:value="${user.linkedin}" type="text" id="linkedin" name="linkedin" placeholder="Enter LinkedIn Url" class="form-control" required>
+                        </div>
+<!-- SubCompany -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-brands fa-flipboard"></i>
+                                </div>
+                            </div>
+                                    <input th:value="${user.subcompany}" type="text" id="subcompany" name="subcompany" placeholder="Enter SubCompany Here" class="form-control" required>
+                        </div>
+<!-- Companies -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-solid fa-building"></i>
+                                </div>
+                            </div>
+                                <input th:value="${user.companies}" type="text" th:field="*{companies[0]}" id="companies" name="companies" placeholder="Company 1" class="form-control" >   
+                                <input th:value="${user.companies}" type="text" th:field="*{companies[1]}" id="companies" name="companies" placeholder="Company 2" class="form-control" >   
+                                <input th:value="${user.companies}" type="text" th:field="*{companies[2]}" id="companies" name="companies" placeholder="Company 3" class="form-control" >
+                                <button input="submit"  onclick="displaycompanies()" class="companies-button btn btn-outline-primary ml-2">Add</button>
+                                
+                        </div>
+                        <div class="companies-result mt-3"></div>
+                            <!-- <ul> -->
+                                <!-- <input type="text" th:field="*{companies[0]}"  id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"/>  -->
+                                <!-- <li th:each="item, companiesStat : ${contact.companies}">
+                                    <input type="text" th:field="*{companies[__${companiesStat.index}__]}"  id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"/>
+                                    <input type="text" th:field="*{companies[__${companiesStat.index}__]}"  id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"/>
+
+                                </li> -->
+                            <!-- </ul> -->
+                            <!-- <input type="text" th:field="*{companies[0]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control" />
+                            <input type="text" th:field="*{companies[1]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control" />
+                            <input type="text" th:field="*{companies[2]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control" /> -->
+                            
+                            <!-- <input type="text" th:if="${contact.companies!=null}" th:field="*{companies[1]}" id="companies" name="companies" placeholder="Companies Here" class="form-control"  required>   
+                            <input type="text" th:unless="${contact.companies!=null}" th:field="*{companies[0]}" id="companies" name="companies" placeholder="Enter Companies Here" class="form-control"  required>   
+                                     -->
+
+<!-- Projects -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-solid fa-diagram-project"></i>
+                                </div>
+                            </div>
+                                <input th:value="${user.projects}" type="text" th:field="*{projects[0]}" id="projects" name="projects" placeholder="Project 1" class="form-control" >   
+                                <input th:value="${user.projects}" type="text" th:field="*{projects[1]}" id="projects" name="projects" placeholder="Project 2" class="form-control" >   
+                                <input th:value="${user.projects}" type="text" th:field="*{projects[2]}" id="projects" name="projects" placeholder="Project 3" class="form-control" >
+                                <button input="submit"  onclick="displaycompanies()" class="projects-button btn btn-outline-primary ml-2">Add</button>
+                                
+                        </div>
+                        <div class="projects-result mt-3"></div>
+<!-- TechStack -->
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa-brands fa-uncharted"></i>
+                                </div>
+                            </div>
+                                <input th:value="${user.techstack}" type="text" th:field="*{techstack[0]}" id="techstack" name="techstack" placeholder="TechStack 1" class="form-control" >   
+                                <input th:value="${user.techstack}" type="text" th:field="*{techstack[1]}" id="techstack" name="techstack" placeholder="TechStack 2" class="form-control" >   
+                                <input th:value="${user.techstack}" type="text" th:field="*{techstack[2]}" id="techstack" name="techstack" placeholder="TechStack 3" class="form-control" >
+                                <button input="submit"  onclick="displaycompanies()" class="techstack-button btn btn-outline-primary ml-2">Add</button>
+                                
+                        </div>
+                        <div class="techstack-result mt-3"></div>
+<!--description  -->
+                        <div class="form-group mt-3">
+                            <textarea th:text="${user.about}" name="about" id="about" rows="10" class="form-control" placeholder="Enter Contact Description"></textarea>
+                        </div>
+<!-- image upload -->
+                        <div class="container text-center" >
+                           <!-- IMAGE FOR LOCAL -->
+                            <!-- <img src="" th:src="${(user.imageUrl =='default.png') ? '/img/default.png' : '/img/'+user.id+'_'+user.imageUrl }" alt="" id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;"> -->
+                            <!-- Image for Cloudinary -->
+                            <img src="" th:src="${(user.imageUrl =='default.png') ? '/img/default.png' : user.imageUrl }" alt="" id="profile-pic" class="my-profile-pic" style="width:250px; height:250px;">
+                        </div>
+                        <p class="text-secondary">Choose new Image</p>
+                        <div class="custom-file mt-3">
+                            <input type="file" name="imageUrl" accept="image/jpg, image/png, image/jpeg" id="input-file">
+                        </div>
+                        <script>
+                            let profilePic = document.getElementById("profile-pic");
+                            let inputFile = document.getElementById("input-file");
+                            inputFile.onchange = function(){
+                                profilePic.src = URL.createObjectURL(inputFile.files[0]);
+                            }
+                        </script>
+<!-- button -->
+                        <div class="container text-center mt-3">
+                            <button class="btn btn-outline-primary">Save User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+     </div>
+    </div>
+</div>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'#mytextArea'});</script>
+    
+    </section>
+
+</body>
+</html>

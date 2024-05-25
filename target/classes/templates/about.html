@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="base :: layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section class ="aboutBanner d-flex justify-content-center align-items-center">
+        <div class="text-center">
+            <h1 class="font-weight-bold">About Connection Checker</h1>
+            <p>Most of us meet many people in our day-to-day lives; some are friends, some are colleagues, and some are interesting people, but by the time we forget their contact information, their skills, and so on. So here comes the connection checker in the picture. It can provide a reliable interface where users can Singup/Login with Encrypted Password. Users can store as many connections in records by multiple parameters, such as their subcompany, previous companies, skills, projects, techstacks, and even nicknames. So later, they can fetch anyone at any time they want. We are providing multiple filters to fetch the stored connection, such as based on subcompany, skills, nicknames, projects, and so on, with just a single click. If we want collective fetching of connections, we can fetch that based on pageing and all at once as well.</p>
+            <p>Technologies used:Spring Boot, Thymeleaf,Spring-Security, Mysql, JPAs</p>
+            <a href="#" th:href="@{/signup}" class="btn bg-primary btn-lg text-white">Get Start</a>
+        </div>
+    </section>
+
+</body>
+</html>
