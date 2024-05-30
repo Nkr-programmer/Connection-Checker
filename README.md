@@ -5,7 +5,7 @@ Show some ❤️ and star the repo to support the project
 
 ## **Project Link**
 
-https://connection-checker-production.up.railway.app/
+https://connection-checker.onrender.com/
 
 ## **Introduction about project**
 
